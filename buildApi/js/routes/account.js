@@ -18,6 +18,8 @@ router.post("/", verifyUserExists, (req, res) => {
   return res.status(201).send();
 });
 
+router.delete("/:name", (req, res) => {});
+
 router.get("/", (req, res) => {
   res.send(db);
 });
