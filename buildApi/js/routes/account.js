@@ -3,22 +3,18 @@ const router = express.Router();
 
 const db = require("../db/db.js");
 const verifyUserExists = require("../middlewares/middle.js");
+const createUser = require("../classes/createUser.js");
 
 router.post("/", verifyUserExists, (req, res) => {
   const { name } = req;
   const { age } = req.body;
 
-  const user = {
-    name,
-    age,
-  };
+  const user = new createUser(name, age);
 
-  db.push(user);
-
-  return res.status(201).send();
+  return res.status(201).json(user);
 });
 
-router.delete("/:name", (req, res) => {
+router.delete("/:id", (req, res) => {
   console.log("Funcionando");
 });
 
