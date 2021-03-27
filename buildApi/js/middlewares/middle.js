@@ -1,3 +1,4 @@
+const func = require("../functions/func.js");
 const db = require("../db/db.js");
 
 function verifyUserExists(req, res, next) {
@@ -5,13 +6,30 @@ function verifyUserExists(req, res, next) {
 
   const user = db.find((user) => user.name === name);
 
-  if (user) {
-    return res.status(400).json({ error: "User Alredy Exists" });
+  if (!user) {
+    return res.status(404).json({ error: "User does not Exists" });
   }
 
-  req.name = name;
+  req.user = user;
 
   next();
 }
 
-module.exports = verifyUserExists;
+function verifyUserExistsDelete(req, res, next) {
+  const { id } = req.headers;
+
+  const user = db.find((user) => user.id === id);
+
+  if (!user) {
+    return res.status(404).json({ error: "User does not Exists" });
+  }
+
+  req.user = user;
+
+  next();
+}
+
+module.exports = {
+  verifyUserExists,
+  verifyUserExistsDelete,
+};

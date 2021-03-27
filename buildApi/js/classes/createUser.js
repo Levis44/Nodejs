@@ -1,6 +1,5 @@
 const { uuid } = require("uuidv4");
 const db = require("../db/db.js");
-
 class createUser {
   constructor(name, age) {
     const user = {
