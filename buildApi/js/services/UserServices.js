@@ -1,7 +1,11 @@
 const db = require("../db/db.js");
 
-class deleteUser {
-  static delete(user) {
+class UserServices {
+  addUser(user) {
+    db.push(user);
+  }
+
+  deleteUser(user) {
     const index = db.indexOf(user);
 
     if (index >= 0) {
@@ -13,4 +17,4 @@ class deleteUser {
   }
 }
 
-module.exports = deleteUser;
+module.exports = UserServices;

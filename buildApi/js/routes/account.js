@@ -7,8 +7,8 @@ const {
   verifyUserExistsDelete,
 } = require("../middlewares/middle.js");
 
-const createUser = require("../classes/createUser.js");
-const deleteUser = require("../classes/deleteUser.js");
+const User = require("../classes/User.js");
+const UserServices = require("../services/UserServices.js");
 
 const func = require("../functions/func.js");
 
@@ -22,7 +22,9 @@ router.post("/", (req, res) => {
     return res.status(400).json({ error: "User Alredy Exists" });
   }
 
-  const user = new createUser(name, age);
+  const user = new User(name, age);
+  // Does not save!!!
+  UserServices.addUser(user);
 
   return res.status(201).json(user);
 });
@@ -30,7 +32,7 @@ router.post("/", (req, res) => {
 router.delete("/", verifyUserExistsDelete, (req, res) => {
   const { user } = req;
 
-  const succes = deleteUser.delete(user);
+  const succes = UserServices.deleteUser(user);
 
   if (!succes) {
     return res.status(400).json({ error: "Error when trying to delete user" });
