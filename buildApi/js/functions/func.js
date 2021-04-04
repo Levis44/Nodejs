@@ -1,5 +1,19 @@
 const db = require("../db/db.js");
 
-const func = {};
+class funcs {
+  static getBalance(user, operation) {
+    const type = operation.type;
+    const amount = operation.amount;
 
-module.exports = func;
+    if (type === "credit") {
+      user.balance += amount;
+      return;
+    }
+
+    user.balance -= amount;
+
+    return;
+  }
+}
+
+module.exports = funcs;

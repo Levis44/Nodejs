@@ -2,10 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const db = require("../db/db.js");
-const {
-  verifyUserExists,
-  verifyUserExistsDelete,
-} = require("../middlewares/middle.js");
+const { verifyUserExists } = require("../middlewares/middle.js");
 
 const User = require("../classes/User.js");
 const UserServices = require("../services/UserServices.js");
@@ -22,13 +19,17 @@ router.post("/", (req, res) => {
     return res.status(400).json({ error: "User Alredy Exists" });
   }
 
+  if (age < 18) {
+    return res.status(400).json({ error: "User is under the allowed age age" });
+  }
+
   const user = new User(name, age);
   UserServices.addUser(user);
 
   return res.status(201).json(user);
 });
 
-router.delete("/", verifyUserExistsDelete, (req, res) => {
+router.delete("/", verifyUserExists, (req, res) => {
   const { user } = req;
 
   const succes = UserServices.deleteUser(user);
@@ -44,13 +45,13 @@ router.get("/", (req, res) => {
   res.send(db);
 });
 
-router.put("/", verifyUserExists, (req, res) => {
-  const { user } = req;
-  const { age } = req.body;
+// router.put("/", verifyUserExists, (req, res) => {
+//   const { user } = req;
+//   const { age } = req.body;
 
-  user.age = age;
+//   user.age = age;
 
-  return res.status(200).json(user);
-});
+//   return res.status(200).json(user);
+// });
 
 module.exports = router;

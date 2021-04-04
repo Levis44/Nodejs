@@ -5,6 +5,8 @@ class User {
     this.id = uuid();
     this.name = name;
     this.age = age;
+    this.balance = 0;
+    this.moves = [];
 
     return this;
   }
