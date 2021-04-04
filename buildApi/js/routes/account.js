@@ -23,10 +23,7 @@ router.post("/", (req, res) => {
   }
 
   const user = new User(name, age);
-  // Does not save!!!
   UserServices.addUser(user);
-  // Errpr
-  UserServices.deleteUser(user);
 
   return res.status(201).json(user);
 });

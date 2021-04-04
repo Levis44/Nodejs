@@ -1,11 +1,11 @@
 const db = require("../db/db.js");
 
 class UserServices {
-  addUser(user) {
+  static addUser(user) {
     db.push(user);
   }
 
-  deleteUser(user) {
+  static deleteUser(user) {
     const index = db.indexOf(user);
 
     if (index >= 0) {
