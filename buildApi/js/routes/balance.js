@@ -3,28 +3,23 @@ const router = express.Router();
 
 const { verifyUserExists } = require("../middlewares/middle.js");
 
-const funcs = require("../functions/func.js");
+const { OperationServices } = require("../services/OperationServices.js");
+const { Operation } = require("../classes/Operation.js");
 
 router.post("/deposit", verifyUserExists, (req, res) => {
   const { description, amount } = req.body;
   const { user } = req;
 
-  const operation = {
-    description,
-    amount,
-    created_at: new Date(),
-    type: "credit",
-  };
+  const operation = new Operation(description, amount, "credit");
 
-  user.moves.push(operation);
-
-  funcs.getBalance(user, operation);
+  OperationServices.move(user, operation);
+  OperationServices.getBalance(user, operation);
 
   res.status(201).send(user);
 });
 
 router.post("/withdraw", verifyUserExists, (req, res) => {
-  const { amount } = req.body;
+  const { description, amount } = req.body;
   const { user } = req;
 
   const balance = user.balance;
@@ -33,15 +28,10 @@ router.post("/withdraw", verifyUserExists, (req, res) => {
     return res.status(400).json({ error: "Insufficient funds" });
   }
 
-  const operation = {
-    amount,
-    created_at: new Date(),
-    type: "debit",
-  };
+  const operation = new Operation(description, amount, "debit");
 
-  user.moves.push(operation);
-
-  funcs.getBalance(user, operation);
+  OperationServices.move(user, operation);
+  OperationServices.getBalance(user, operation);
 
   res.status(201).send(user);
 });
