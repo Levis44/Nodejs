@@ -45,13 +45,13 @@ router.get("/", (req, res) => {
   res.send(db);
 });
 
-// router.put("/", verifyUserExists, (req, res) => {
-//   const { user } = req;
-//   const { age } = req.body;
+router.put("/", verifyUserExists, (req, res) => {
+  const { user } = req;
+  const { age } = req.body;
 
-//   user.age = age;
+  user.age = age;
 
-//   return res.status(200).json(user);
-// });
+  return res.status(200).json(user);
+});
 
 module.exports = router;
