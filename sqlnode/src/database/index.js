@@ -1,5 +1,8 @@
 const Sequelize = require("sequelize");
+
 const User = require("../models/User");
+const Address = require("../models/Address");
+const Tech = require("../models/Tech");
 
 const connection = new Sequelize(
   "jcgsyyze",
@@ -10,13 +13,6 @@ const connection = new Sequelize(
     dialect: "postgres",
     operatorsAliases: false,
 
-    // pool: {
-    //   max: 5,
-    //   min: 0,
-    //   acquire: 30000,
-    //   idle: 10000,
-    // },
-
     define: {
       timestamps: true,
       underscored: true,
@@ -25,5 +21,11 @@ const connection = new Sequelize(
 );
 
 User.init(connection);
+Address.init(connection);
+Tech.init(connection);
+
+Address.associate(connection.models);
+User.associate(connection.models);
+Tech.associate(connection.models);
 
 module.exports = connection;
