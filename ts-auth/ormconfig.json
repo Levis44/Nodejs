@@ -1,14 +1,14 @@
 {
   "type": "postgres",
   "host": "batyr.db.elephantsql.com",
-  "port": 3306,
+  "port": 5432,
   "url": "postgres://kcsktfzg:eMNsLn7XfJ6SB-_N_dtxAw9bg2KT0GN7@batyr.db.elephantsql.com/kcsktfzg",
   "username": "kcsktfzg",
   "password": "eMNsLn7XfJ6SB-_N_dtxAw9bg2KT0GN7",
   "database": "kcsktfzg",
   "entities": ["src/app/models/*.ts"],
-  "migrations": ["src/databse/migrations/*.ts"],
+  "migrations": ["src/database/migrations/*.ts"],
   "cli": {
-    "migrationsDir": "src/databse/migrations"
+    "migrationsDir": "src/database/migrations"
   }
 }
